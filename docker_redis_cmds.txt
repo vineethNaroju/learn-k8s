@@ -1,0 +1,4 @@
+> docker run --name redis-container -p 127.0.0.1:7001:6379 -d redis
+> redis-cli
+> docker stop redis-container
+> docker start redis-container
