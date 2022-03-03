@@ -1,3 +1,10 @@
+Minikube:
+- One Node k8s cluster with Master process + Worker process.
+- Virtualbox / hypervisor setup.
+
+Kubectl:
+- It's API server end point of Master process.
+
 kubectl get pods
 kubectl get nodes
 kubectl get services
