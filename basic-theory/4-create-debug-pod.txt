@@ -1,0 +1,29 @@
+kubectl get pods
+kubectl get nodes
+kubectl get services
+kubectl create deployment nginx-deployment --image=nginx
+kubectl get replicaset
+
+Deployment manages a replicaset. 
+Replicaset manages all replicas of that pod.
+Pod is an abstraction of container.
+
+To edit deployment
+kubectl edit deployment nginx-deployment
+kubectl get deployments
+kubectl get pods
+
+
+Create mongo pod and get info about it
+kubectl create deployment mongo-deployment --image=mongo
+kubectl get pods
+kubectl logs POD-NAME
+kubectl describe pod POD-NAME
+
+Interactive terminal to enter pod bash
+kubectl exec -it POD-NAME -- /bin/bash
+
+
+It's hectic to type so many options in kubectl create deployments cmd line, so we use.
+kubectl apply -f config.yaml
+kubectl delete -f config.yaml
