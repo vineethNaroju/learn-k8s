@@ -1,0 +1,53 @@
+Pod:
+- smallest unit of k8s.
+- abstraction over container - we can use multiple container technology.
+- Usually meant to run 1 application inside a pod.
+- Each pod get it's own IP address.
+- Pods are ephemeral - means they can die.
+- On death, they get new IP address.
+
+Service:
+- permanent IP address.
+- Even if pod dies, service stays alive.
+- External-service (protocol + node IP address + port) and internal-service.
+
+Ingress:
+- it does forwarding to service.
+
+ConfigMap:
+- external config of app, ex - urls of database.
+- pod connects to it and get stuff from config-map.
+- we can't keep password & username here.
+
+Secret:
+- used to store secret data.
+- base64 encoded format.
+- certificates, etc.
+- is a load balancer as well.
+
+Volumes:
+- Persistent storage - on local node or external to cluster.
+- k8s doesn't manage data persistence or replicating or backing up , etc.
+
+Deployment:
+- Blueprint for pods / replicas.
+- we work with deployments and not pods.
+
+Stateful-Set:
+- Db cant be replicated via deployment.
+- To avoid data inconsistencies, do replication, etc.
+- mysql, mongodb, elasticsearch, etc.
+- db read / writes are synchronized to avoid inconsistencies, etc.
+- Complex to setup and recommended to use external db.
+
+
+
+
+
+
+
+
+
+
+
+
