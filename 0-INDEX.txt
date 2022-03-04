@@ -6,8 +6,8 @@
 6-complete-deployment (done)
 7-namespaces (done)
 8-ingress (done)
-9-Helm (started)
-10-Networking
+9-Helm (done)
+10-Networking (started)
 11-Volumes, Persistent Volume.
 12-ConfigMap-Secret-As-Volumes
 13-Private-Docker-Registry
