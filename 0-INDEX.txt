@@ -8,13 +8,11 @@
 8-ingress (done)
 9-Helm (done)
 10-Networking (done)
-
-11-Volumes, Persistent Volume (started)
-
+11-Volumes, Persistent Volume (done)
 12-ConfigMap-Secret-As-Volumes
 13-Private-Docker-Registry
-14-StatefulSet
-18-Operator
+14-StatefulSet (started)
+18-Operator (done)
 20-Services
 -------------------------------------------
 15-Prometheus (Ignore)

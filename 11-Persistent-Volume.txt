@@ -1,0 +1,110 @@
+*** About Me ***
+
+Persistent Volume => PV
+Persistent Volume Claim => PVC
+Storage Class => SC
+
+*** Why PVs ? ***
+
+- mongo pod restarts => lose data
+- we need storage that doesn't depend on pod lifecycle.
+- Storage must be available on eeach node.
+- Storage needs to survive even if whole cluster dies.
+
+*** Persistent Volume ***
+
+- cluster resource, interface to physical storage
+- Needs physical storage, like cloud or nfs or local disk, etc.
+- what type of storage ? create and manage them by ourself.
+
+apiVerson: v1
+kind: PersistentVolume
+metadata:
+    name: pv-name
+spec:
+    capacity:
+        storage:....
+    volumeMode:
+    accessModes:
+        - ReadWriteOnce
+    nfs: --------------------> FILE SYSTEM
+        path: /dir/nfs/server
+        server:
+    gcePersistentDisk: -------------> GOOGLE CLOUD STORAGE
+        pdName:
+        fsType: ext4
+    nodeAffinity: ----------> LOCAL STORAGE
+
+- PVs are not Namespaced.
+
+k8s admin sets up and maintains cluster ---> configures storage, creates PV.
+k8s user deploys apps in cluster.
+
+
+*** Persistent Volume Claim ***
+
+- Application has to claim Persistent Volume
+- Must be in same Namespace as cluster.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: pvc-name
+spec:
+    storageClassName: manual
+    volumeMode: Filesystem
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        request:
+            storage: 100Gi
+    storageClassName: storage-class-name
+
+Application Pod YAML:
+apiVersion: v1
+kind: Pod
+metadata:
+    name: namepod
+spec:
+    containers:
+    - name: nginx
+        image: nginx
+        volumeMounts:
+        -   mountPath: "var/www/html"
+            name: mypd ----------> Mounted Volume, specific to a container
+        -   mountPath: var/lib/secret
+            name: db-secret
+    volumes: -----------------> PVC
+        -   name: mypd
+            persistentVolumeClaim: 
+                claimName: pvc-name
+        -   name: secret-dir
+            secret:
+                secretName: db-secret
+
+- Then Volume is mounted into POD and then into Container.
+
+- Abstractions help devs to worry about business logic.
+- ConfigMap and Secret are local volumes and managed by k8s.
+volumes:
+-   name: config-dir
+    configMap:
+        name: db-config
+
+
+*** Storage Class ***
+
+- Admins need to create lots of PVs.
+- Tedious, time consuming and bleh.
+
+- SC provisions PVs dynamically.
+- each storage has it's own provisioner.
+
+apiVersion: stoage.k7s.io/v1
+kind: storageClass
+metadata:
+    name: storage-class-name
+provisioner: kubernetes.io/aws-ebs
+parameters:
+    type: io1
+    iopsPerGB: "10"
+    fsType: ext4 
