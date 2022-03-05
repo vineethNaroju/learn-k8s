@@ -11,9 +11,9 @@
 11-Volumes, Persistent Volume (done)
 12-ConfigMap-Secret-As-Volumes
 13-Private-Docker-Registry
-14-StatefulSet (started)
+14-StatefulSet (done)
 18-Operator (done)
-20-Services
+20-Services (started)
 -------------------------------------------
 15-Prometheus (Ignore)
 16-k8s-on-cloud (Ignore)
