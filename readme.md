@@ -1,1 +1,1 @@
-testing out first commit
+Learning Kubernetes on Minikube setup with Nana videos.
