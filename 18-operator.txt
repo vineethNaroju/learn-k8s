@@ -1,0 +1,23 @@
+*** About me ***
+
+- Used for stateful applications
+- All 3 stateful replicas is different, each has its own identity
+- synchronization among replicas, vary for each application.
+- We need human operators -----> Manual Work =/
+- why not outside k8s -> we need stateful for prometheus, etcd.
+
+- Operator replaces human operator.
+- Deploy app, create replica cluster, backup and recover.
+- Only 1 standard automated process.
+
+> Control Loop mechanism
+Observe. -> Check Diff -> Take action -> Observe.
+
+> uses CRD - Customer Resource Definitions
+- extends k8s API.
+- domain / app-specific knowledge.
+
+- Operator are built for each application, build by domain expert.
+- https://operatorhub.io/
+
+- Operator SDK
