@@ -7,14 +7,17 @@
 7-namespaces (done)
 8-ingress (done)
 9-Helm (done)
-10-Networking (started)
-11-Volumes, Persistent Volume.
+10-Networking (done)
+
+11-Volumes, Persistent Volume (started)
+
 12-ConfigMap-Secret-As-Volumes
 13-Private-Docker-Registry
 14-StatefulSet
+18-Operator
+20-Services
+-------------------------------------------
 15-Prometheus (Ignore)
 16-k8s-on-cloud (Ignore)
 17-LKE-using-Helm (Ignore)
-18-Operator
 19-Prometheus-Monitoring (Ignore)
-20-Services

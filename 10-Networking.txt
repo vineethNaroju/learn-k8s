@@ -1,0 +1,62 @@
+- Why is Pod abstraction useful ?
+- Container vs Pods
+- When are multiple containers necessary ?
+
+"Every Pod has a unqiue IP address"
+"IP address is reachable from all pods in same cluster"
+
+How to allocate ports without getting conflicts ?
+
+> docker run -p 5000:5432 -e POSTGRES_PASSWORD=pwd postgres:9.6.17
+> docker run -p 5001:5432 -e POSTGRES_PASSWORD=pwd postgres:9.6.17
+
+Problem is to track free ports => POD - own IP address, usually with one
+main container
+
+POD :
+- own network namespace
+- virtual ethernet connection
+- pod is a host
+
+> kubectl apply -f postgres.yaml
+
+*** Multiple Containers in a pod ***
+- Synchronizing data-base replicas,
+- Back-up, scheduler or authentication side-car
+
+Containers inside can talk via localhost and port inside a pod
+
+> kubectl apply -f nginx-sidecar-container.yaml
+> kubectl get pods
+
+To enter specific container of a pod
+> kubectl exec -it ngnx -c sidecar -- /bin/sh
+/ $ netstat -ln
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      
+tcp        0      0 :::80                   :::*                    LISTEN      
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags       Type       State         I-Node Path
+/ $ curl localhost:80
+/ $ exit
+
+> kubectl logs nginx-container -c nginx-container
+
+
+*** Pause Container ***
+- sandbox container per pod.
+- reserves and holds network namespace (netns)
+- enables communication between containers
+
+> echo $(minikube docker-env)
+export DOCKER_TLS_VERIFY="1" 
+export DOCKER_HOST="tcp://192.168.49.2:2376" 
+export DOCKER_CERT_PATH="/home/rio/.minikube/certs" 
+export MINIKUBE_ACTIVE_DOCKERD="minikube" 
+# To point your shell to minikube's docker-daemon, run: 
+# eval $(minikube -p minikube docker-env)
+
+> eval $(minikube -p minikube docker-env)
+> docker ps | grep k8s_POD_nginx
+5bb8793b0d87   k8s.gcr.io/pause:3.6   "/pause"                 13 minutes ago   Up 13 minutes                                              k8s_POD_nginx_default_ec632ba1-512d-474b-addb-8ae4e6963c50_0
