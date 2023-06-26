@@ -5,6 +5,9 @@ Minikube:
 Kubectl:
 - It's API server end point of Master process.
 
+kubectl config get-contexts
+kubectl config -h
+kubectl config current-context
 kubectl get pods
 kubectl get nodes
 kubectl get services
